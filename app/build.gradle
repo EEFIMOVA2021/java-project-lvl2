@@ -30,10 +30,18 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'app.App'
+    mainClass = 'hexlet.code.App'
+}
+
+repositories {
+    mavenCentral()
 }
 
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+compileJava {
+    options.release = 16
 }
