@@ -10,7 +10,7 @@ import picocli.CommandLine.Parameters;
         description = "Compares two configuration files and shows a difference.")
 
 public class App implements Runnable{
-    @Option(names = { "-f", "--format=format" }, description = "output format [default: stylish]")
+    @Option(names = { "-f", "--format" }, description = "output format [default: stylish]")
     String format = "stylish";
 
     @Parameters(paramLabel = "filepath1",
