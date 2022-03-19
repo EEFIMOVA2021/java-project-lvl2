@@ -61,7 +61,7 @@ public class App implements Runnable{
         System.exit(exitCode);
     }
 
-    private static String getJsonFromFile(String filepath) {
+    private static String getJsonFromFile(String filepath) throws Exception {
         String json = "";
         try {
             File fileObject = new File(filepath);
