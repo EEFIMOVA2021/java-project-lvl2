@@ -44,8 +44,8 @@ public class App implements Runnable{
         int exitCode = new CommandLine(new App()).execute(args);
 
         try {
-            String json1 = getJsonFromFile("app/src/main/java/hexlet/code/filepath1.json");
-            String json2 = getJsonFromFile("app/src/main/java/hexlet/code/filepath2.json");
+            String json1 = getJsonFromFile("src/main/java/hexlet/code/filepath1.json");
+            String json2 = getJsonFromFile("src/main/java/hexlet/code/filepath2.json");
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, String> map1 = objectMapper.readValue(json1, Map.class);
             Map<String, String> map2 = objectMapper.readValue(json2, Map.class);
@@ -53,7 +53,6 @@ public class App implements Runnable{
             System.out.println(map2);
             Map<String, String> res = genDiff(map1, map2);
             System.out.println(res);
-
         } catch (Exception e) {
             System.out.println("An error has ossured in main()!");
             e.printStackTrace();
