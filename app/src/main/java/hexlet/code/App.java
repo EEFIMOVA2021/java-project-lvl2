@@ -44,39 +44,41 @@ public class App implements Runnable{
         int exitCode = new CommandLine(new App()).execute(args);
 
         try {
-            File fileObject1 = new File("app/src/main/java/hexlet/code/filepath1.json");
-            Scanner myReader1 = new Scanner(fileObject1);
-            String json1 = "";
-            while(myReader1.hasNextLine()) {
-                String data = myReader1.nextLine();
-                json1 += data.trim();
-            }
-            myReader1.close();
-            File fileObject2 = new File("app/src/main/java/hexlet/code/filepath2.json");
-            Scanner myReader2 = new Scanner(fileObject2);
-            String json2 = "";
-            while(myReader2.hasNextLine()) {
-                String data = myReader2.nextLine();
-                json2 += data.trim();
-            }
-            myReader2.close();
+            String json1 = getJsonFromFile("app/src/main/java/hexlet/code/filepath1.json");
+            String json2 = getJsonFromFile("app/src/main/java/hexlet/code/filepath2.json");
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, String> map1 = objectMapper.readValue(json1, Map.class);
             Map<String, String> map2 = objectMapper.readValue(json2, Map.class);
-            System.out.println(json1);
             System.out.println(map1);
-            System.out.println(json2);
             System.out.println(map2);
             Map<String, String> res = genDiff(map1, map2);
             System.out.println(res);
+
         } catch (Exception e) {
-            System.out.println("An error has ossured!");
+            System.out.println("An error has ossured in main()!");
             e.printStackTrace();
         }
         System.exit(exitCode);
     }
 
-    public static Map<String, String> genDiff(Map<String, String> map1, Map<String, String> map2) {
+    private static String getJsonFromFile(String filepath) {
+        String json = "";
+        try {
+            File fileObject = new File(filepath);
+            Scanner myReader = new Scanner(fileObject);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                json += data.trim();
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error has ossured in getJsonFromFile()!");
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+    private static Map<String, String> genDiff(Map<String, String> map1, Map<String, String> map2) {
         Map<String, String> result = new LinkedHashMap<>();
         Set<String> keys = new TreeSet<>(map1.keySet());
         keys.addAll(map2.keySet());
