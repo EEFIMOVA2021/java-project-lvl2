@@ -25,11 +25,11 @@ public class App implements Runnable{
 
     @Parameters(paramLabel = "filepath1",
             description = "path to first file")
-    String filepath1;
+    private static String filepath1;
 
     @Parameters(paramLabel = "filepath2",
             description = "path to second file")
-    String filepath2;
+    private static String filepath2;
 
     public String getGreeting() {
         return "Hello World!";
@@ -42,10 +42,9 @@ public class App implements Runnable{
     public static void main(String[] args) {
         //System.out.println(new App().getGreeting());
         int exitCode = new CommandLine(new App()).execute(args);
-
         try {
-            String json1 = getJsonFromFile("src/main/java/hexlet/code/filepath1.json");
-            String json2 = getJsonFromFile("src/main/java/hexlet/code/filepath2.json");
+            String json1 = getJsonFromFile(filepath1); //"src/main/java/hexlet/code/filepath1.json"
+            String json2 = getJsonFromFile(filepath2); //"src/main/java/hexlet/code/filepath2.json"
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, String> map1 = objectMapper.readValue(json1, Map.class);
             Map<String, String> map2 = objectMapper.readValue(json2, Map.class);
