@@ -14,6 +14,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Map;
 import java.util.*;
+import java.nio.file.Path;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @Command(name = "App", version = "App 1.0",
         mixinStandardHelpOptions = true,
@@ -39,12 +42,12 @@ public class App implements Runnable{
     public void run() {
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         //System.out.println(new App().getGreeting());
         int exitCode = new CommandLine(new App()).execute(args);
         try {
-            String json1 = getJsonFromFile(filepath1); //"src/main/java/hexlet/code/filepath1.json"
-            String json2 = getJsonFromFile(filepath2); //"src/main/java/hexlet/code/filepath2.json"
+            String json1 = getJsonFromFile(filepath1);
+            String json2 = getJsonFromFile(filepath2);
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, String> map1 = objectMapper.readValue(json1, Map.class);
             Map<String, String> map2 = objectMapper.readValue(json2, Map.class);
@@ -62,14 +65,9 @@ public class App implements Runnable{
     private static String getJsonFromFile(String filepath) throws Exception {
         String json = "";
         try {
-            File fileObject = new File(filepath);
-            Scanner myReader = new Scanner(fileObject);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                json += data.trim();
-            }
-            myReader.close();
-        } catch (FileNotFoundException e) {
+            Path path = Paths.get(filepath);
+            json = Files.readString(path);
+        } catch (Exception e) {
             System.out.println("An error has ossured in getJsonFromFile()!");
             e.printStackTrace();
         }
