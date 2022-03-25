@@ -23,7 +23,7 @@ jobs:
       # Ставим зависимости
       - run: npm install
       # Запускаем линтер
-      - run: npm run lint
+      #- run: npm run lint
       - name: Hexlet project check
         uses: hexlet/project-action@release
         with:
