@@ -1,31 +1,17 @@
 package hexlet.code;
 
-import hexlet.code.Differ;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import java.io.File;
-import java.io.FileNotFoundException;
-//import java.util.Scanner;
-//import java.util.ArrayList;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-//import java.util.Map;
-import java.util.*;
-import java.nio.file.Path;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 @Command(name = "App", version = "App 1.0",
         mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
 
-public class App implements Runnable{
+public class App implements Runnable {
     @Option(names = { "-f", "--format" }, description = "output format [default: stylish]")
-    String format = "stylish";
+    private  static String format = "stylish";
 
     @Parameters(paramLabel = "filepath1",
             description = "path to first file")
@@ -35,7 +21,7 @@ public class App implements Runnable{
             description = "path to second file")
     private static String filepath2;
 
-    public String getGreeting() {
+    public final String getGreeting() {
         return "Hello World!";
     }
 

@@ -1,21 +1,21 @@
 package hexlet.code;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-//import java.util.Map;
-//import java.util.TreeSet;
-//import java.util.LinkedHashMap;
-import java.util.*;
+import java.util.Set;
+//import java.util.Collection;
+//import java.util.List;
+//import java.util.AbstractCollection;
+//import java.util.AbstractSet;
+import java.util.TreeSet;
+import java.util.Map;
+//import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Differ {
-    public static String generate (String filepath1, String filepath2) {
+    public static String generate(String filepath1, String filepath2) {
         try {
             String json1 = getJsonFromFile(filepath1);
             String json2 = getJsonFromFile(filepath2);
@@ -48,7 +48,7 @@ public class Differ {
         Set<String> keys = new TreeSet<>(map1.keySet());
         keys.addAll(map2.keySet());
         for (String key: keys) {
-            if(!map1.containsKey(key)) {
+            if (!map1.containsKey(key)) {
                 result.put(key, "+ " + key + ": " + map2.get(key));
             } else if (!map2.containsKey(key)) {
                 result.put(key, "- " + key + ": " + map1.get(key));
@@ -61,9 +61,9 @@ public class Differ {
         return result;
     }
 
-    private static String getStringValuesMap (Map<String, String> map) {
+    private static String getStringValuesMap(Map<String, String> map) {
         String result = "{";
-        for(Map.Entry<String, String> mapEntity: map.entrySet()) {
+        for (Map.Entry<String, String> mapEntity: map.entrySet()) {
             result += "\n" + mapEntity.getValue();
         }
         result += "\n}";

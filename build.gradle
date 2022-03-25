@@ -8,8 +8,10 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
+    id 'java'
     id 'application'
     id 'com.github.ben-manes.versions' version '0.39.0'
+    id 'checkstyle'
 }
 
 group = 'hexlet.code'
@@ -35,10 +37,6 @@ application {
     mainClass = 'hexlet.code.App'
 }
 
-repositories {
-    mavenCentral()
-}
-
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
@@ -46,4 +44,16 @@ tasks.named('test') {
 
 compileJava {
     options.release = 16
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.required = false
+        html.required = true
+        html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
+    }
 }
