@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # Ставим зависимости
-      - run: npm install
+      #- run: npm install
       # Запускаем линтер
       #- run: npm run lint
       - name: Hexlet project check
