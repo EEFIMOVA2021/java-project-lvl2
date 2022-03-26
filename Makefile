@@ -8,7 +8,7 @@ run-dist:
 run:
 	./gradlew run
 lint:
-	./gradlew checkstyleMain
+	./gradlew checkstyleMain checkstyleTest
 check-updates:
 	./gradlew useLatestVersions
 
