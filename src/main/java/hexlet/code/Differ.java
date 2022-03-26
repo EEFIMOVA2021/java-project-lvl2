@@ -2,13 +2,8 @@ package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Set;
-//import java.util.Collection;
-//import java.util.List;
-//import java.util.AbstractCollection;
-//import java.util.AbstractSet;
 import java.util.TreeSet;
 import java.util.Map;
-//import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.nio.file.Path;
 import java.nio.file.Files;
