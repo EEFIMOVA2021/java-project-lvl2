@@ -49,7 +49,7 @@ compileJava {
 test {
     useJUnitPlatform()
 }
-
+/*
 tasks.withType(Checkstyle) {
     reports {
         xml.required = false
@@ -57,3 +57,4 @@ tasks.withType(Checkstyle) {
         html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
     }
 }
+ */
