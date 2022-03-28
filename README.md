@@ -6,4 +6,4 @@
 
 
 Демонстрационный проект:
-<a href="https://asciinema.org/a/grPDsjFG2Y3mkZ1X7x6ZECo6y?autoplay=1"><img src="https://asciinema.org/a/grPDsjFG2Y3mkZ1X7x6ZECo6y.png" width="836"/></a>
+<a href="https://asciinema.org/a/OBZOwhJ7HxoJCr0edqYwWq4CQ?autoplay=1"><img src="https://asciinema.org/a/OBZOwhJ7HxoJCr0edqYwWq4CQ.png" width="836"/></a>
