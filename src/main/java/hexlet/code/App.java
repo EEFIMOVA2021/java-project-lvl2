@@ -30,7 +30,6 @@ public class App implements Runnable {
     }
 
     public static void main(String[] args) throws Exception {
-        //System.out.println(new App().getGreeting());
         int exitCode = new CommandLine(new App()).execute(args);
         String diff = Differ.generate(filepath1, filepath2);
         System.exit(exitCode);
