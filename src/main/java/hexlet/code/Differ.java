@@ -1,41 +1,23 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Map;
 import java.util.LinkedHashMap;
-import java.nio.file.Path;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class Differ {
     public static String generate(String filepath1, String filepath2) {
+        String generateResult = "";
         try {
-            String json1 = getJsonFromFile(filepath1);
-            String json2 = getJsonFromFile(filepath2);
-            ObjectMapper objectMapper = new ObjectMapper();
-            Map<String, Object> map1 = objectMapper.readValue(json1, Map.class);
-            Map<String, Object> map2 = objectMapper.readValue(json2, Map.class);
+            Map<String, Object> map1 = Parser.parseFile(filepath1);
+            Map<String, Object> map2 = Parser.parseFile(filepath2);
             Map<String, String> res = genDiff(map1, map2);
-            System.out.println(getStringValuesMap(res));
+            generateResult = getStringValuesMap(res);
         } catch (Exception e) {
             System.out.println("An error has ossured in main()!");
             e.printStackTrace();
         }
-        return "";
-    }
-
-    private static String getJsonFromFile(String filepath) throws Exception {
-        String json = "";
-        try {
-            Path path = Paths.get(filepath);
-            json = Files.readString(path);
-        } catch (Exception e) {
-            System.out.println("An error has ossured in getJsonFromFile()!");
-            e.printStackTrace();
-        }
-        return json;
+        return generateResult;
     }
 
     private static Map<String, String> genDiff(Map<String, Object> map1, Map<String, Object> map2) {
