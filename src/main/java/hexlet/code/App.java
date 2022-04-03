@@ -31,7 +31,7 @@ public class App implements Runnable {
 
     public static void main(String[] args) throws Exception {
         int exitCode = new CommandLine(new App()).execute(args);
-        String diff = Differ.generate(filepath1, filepath2);
+        String diff = Differ.generate(filepath1, filepath2, format);
         System.out.println(diff);
         System.exit(exitCode);
     }

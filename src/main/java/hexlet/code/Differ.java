@@ -8,13 +8,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Differ {
-    public static String generate(String filepath1, String filepath2) {
+    public static String generate(String filepath1, String filepath2, String format) {
         String generateResult = "";
         try {
             Map<String, Object> map1 = Parser.parseFile(filepath1);
             Map<String, Object> map2 = Parser.parseFile(filepath2);
             Map<String, List<String>> res = genDiff(map1, map2);
-            generateResult = getStringValuesStylish(res);
+            generateResult = Formatter.getStringFormat(res, format);
         } catch (Exception e) {
             System.out.println("An error has ossured in main()!");
             e.printStackTrace();
@@ -32,22 +32,18 @@ public class Differ {
                 listValues.add("add");
                 listValues.add("");
                 listValues.add(map2.get(key).toString());
-                result.put(key, listValues);
             } else if (!map2.containsKey(key)) {
                 listValues.add("remove");
                 listValues.add(map1.get(key).toString());
                 listValues.add("");
-                result.put(key, listValues);
             } else if (map1.get(key) == null && map2.get(key) != null) {
                 listValues.add("change");
                 listValues.add("null");
                 listValues.add(map2.get(key).toString());
-                result.put(key, listValues);
             } else if (map1.get(key) != null && map2.get(key) == null) {
                 listValues.add("change");
                 listValues.add(map1.get(key).toString());
                 listValues.add("null");
-                result.put(key, listValues);
             } else if (map1.get(key) == null && map2.get(key) == null || map1.get(key).equals(map2.get(key))) {
                 listValues.add("unchange");
                 if (map1.get(key) == null) {
@@ -60,35 +56,30 @@ public class Differ {
                 } else {
                     listValues.add(map2.get(key).toString());
                 }
-                result.put(key, listValues);
             } else {
                 listValues.add("change");
                 listValues.add(map1.get(key).toString());
                 listValues.add(map2.get(key).toString());
-                result.put(key, listValues);
             }
-        }
-        return result;
-    }
-
-    private static String getStringValuesStylish(Map<String, List<String>> map) {
-        List<String> list = new LinkedList<>();
-        String result = "{";
-        for (Map.Entry<String, List<String>> mapEntity: map.entrySet()) {
-            list.clear();
-            list.addAll(mapEntity.getValue());
-            if (list.get(0) == "add") {
-                result += "\n" + "+ " + mapEntity.getKey() + ": " + list.get(2);
-            } else if (list.get(0) == "remove") {
-                result += "\n" + "- " + mapEntity.getKey() + ": " + list.get(1);
-            } else if (list.get(0) == "change") {
-                result += "\n" + "- " + mapEntity.getKey() + ": " + list.get(1)
-                        + "\n+ " + mapEntity.getKey() + ": " + list.get(2);
+            if (map1.get(key) instanceof Integer
+                    || map1.get(key) instanceof String
+                    || map1.get(key) instanceof Boolean
+                    || map1.get(key) == null) {
+                listValues.add("noncomplex");
             } else {
-                result += "\n" + "  " + mapEntity.getKey() + ": " + list.get(1);
+                listValues.add("[complex value]");
             }
+            if (map2.get(key) instanceof Integer
+                    || map2.get(key) instanceof String
+                    || map2.get(key) instanceof Boolean
+                    || map2.get(key) == null) {
+                listValues.add("noncomplex");
+            } else {
+                listValues.add("[complex value]");
+            }
+            result.put(key, listValues);
         }
-        result += "\n}";
+        //System.out.println(result);
         return result;
     }
 }
