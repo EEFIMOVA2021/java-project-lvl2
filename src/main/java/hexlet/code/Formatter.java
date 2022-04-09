@@ -1,72 +1,73 @@
 package hexlet.code;
 
-import java.util.Set;
-import java.util.TreeSet;
+//import java.util.Set;
+//import java.util.TreeSet;
 import java.util.Map;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
+//import java.util.LinkedHashMap;
+//import java.util.LinkedList;
 import java.util.List;
 
 public class Formatter {
-    public static String getStringFormat(Map<String, List<String>> map, String format) {
+    public static String getStringFormat(List<Map<String, Object>> list, String format) {
         if (format == "stylish") {
-            return getStringValuesStylish(map);
+            return getStringValuesStylish(list);
         } else {
-            return getStringValuesPlain(map);
+            return getStringValuesPlain(list);
         }
     }
 
-    private static String getStringValuesStylish(Map<String, List<String>> map) {
+    private static String getStringValuesStylish(List<Map<String, Object>> list) {
         String result = "{";
-        for (Map.Entry<String, List<String>> mapEntity: map.entrySet()) {
-            List<String> list = new LinkedList<>();
-            list.addAll(mapEntity.getValue());
-            if (list.get(0) == "add") {
-                result += "\n" + "+ " + mapEntity.getKey() + ": " + list.get(2);
-            } else if (list.get(0) == "remove") {
-                result += "\n" + "- " + mapEntity.getKey() + ": " + list.get(1);
-            } else if (list.get(0) == "change") {
-                result += "\n" + "- " + mapEntity.getKey() + ": " + list.get(1)
-                        + "\n+ " + mapEntity.getKey() + ": " + list.get(2);
+        for (Map<String, Object> map: list) {
+            if (map.get("status") == "add") {
+                result += "\n" + "+ " + map.get("key") + ": " + map.get("newValue");
+            } else if (map.get("status") == "remove") {
+                result += "\n" + "- " + map.get("key") + ": " + map.get("oldValue");
+            } else if (map.get("status") == "change") {
+                result += "\n" + "- " + map.get("key") + ": " + map.get("oldValue")
+                        + "\n+ " + map.get("key") + ": " + map.get("newValue");
             } else {
-                result += "\n" + "  " + mapEntity.getKey() + ": " + list.get(1);
+                result += "\n" + "  " + map.get("key") + ": " + map.get("oldValue");
             }
         }
         result += "\n}";
         return result;
     }
 
-    private static String getStringValuesPlain(Map<String, List<String>> map) {
+    private static String getStringValuesPlain(List<Map<String, Object>> list) {
+        boolean firstEnter = true;
         String result = "";
-        for (Map.Entry<String, List<String>> mapEntity: map.entrySet()) {
-            List<String> list = new LinkedList<>();
-            list.addAll(mapEntity.getValue());
-            if (list.get(0) == "add") {
-                result += "Property '" + mapEntity.getKey() + "' was added with value: " + getNewListValue(list);
-            } else if (list.get(0) == "remove") {
-                result += "Property '" + mapEntity.getKey() + "' was removed";
-            } else if (list.get(0) == "change") {
-                result += "Property '" + mapEntity.getKey() + "' was updated. From " + getOldListValue(list)
-                        + " to " + getNewListValue(list);
-            }
-            if (list.get(0) != "unchange") {
+        for (Map<String, Object> map: list) {
+            if (!map.get("status").equals("unchange") && !firstEnter) {
                 result += "\n";
+            }
+            if (!map.get("status").equals("unchange")) {
+                firstEnter = false;
+            }
+            if (map.get("status").equals("add")) {
+                result += "Property '" + map.get("key")
+                        + "' was added with value: " + getValue(map.get("newValue"));
+            } else if (map.get("status").equals("remove")) {
+                result += "Property '" + map.get("key") + "' was removed";
+            } else if (map.get("status").equals("change")) {
+                result += "Property '" + map.get("key") + "' was updated. From "
+                        + getValue(map.get("oldValue"))
+                        + " to " + getValue(map.get("newValue"));
             }
         }
         return result;
     }
 
-    private static String getOldListValue (List<String> list) {
-        if (list.get(3) == "noncomplex") {
-            return list.get(1);
+    private static String getValue(Object value) {
+        if (value == null) {
+            return null;
         }
-        return list.get(3);
-    }
-
-    private static String getNewListValue (List<String> list) {
-        if (list.get(4) == "noncomplex") {
-            return list.get(2);
+        if (value instanceof String) {
+            return "'" + value + "'";
         }
-        return list.get(4);
+        if (value instanceof Integer || value instanceof Boolean) {
+            return value.toString();
+        }
+        return "[complex value]";
     }
 }

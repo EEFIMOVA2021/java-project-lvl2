@@ -84,6 +84,28 @@ class AppTest {
     }
 
     @Test
+    void appJsonDifferGeneratePlain() {
+        String filepath1 = "src/test/resources/file1_1.json";
+        String filepath2 = "src/test/resources/file2_2.json";
+        String format = "plain";
+        String result = "Property 'chars2' was updated. From [complex value] to false"
+                + "\nProperty 'checked' was updated. From false to true"
+                + "\nProperty 'default' was updated. From null to [complex value]"
+                + "\nProperty 'id' was updated. From 45 to null"
+                + "\nProperty 'key1' was removed"
+                + "\nProperty 'key2' was added with value: 'value2'"
+                + "\nProperty 'numbers2' was updated. From [complex value] to [complex value]"
+                + "\nProperty 'numbers3' was removed"
+                + "\nProperty 'numbers4' was added with value: [complex value]"
+                + "\nProperty 'obj1' was added with value: [complex value]"
+                + "\nProperty 'setting1' was updated. From 'Some value' to 'Another value'"
+                + "\nProperty 'setting2' was updated. From 200 to 300"
+                + "\nProperty 'setting3' was updated. From true to 'none'";
+        String diff = Differ.generate(filepath1, filepath2, format);
+        assertEquals(diff, result);
+    }
+
+    @Test
     void appYmlDifferGeneratePlain() {
         String filepath1 = "src/test/resources/file1_1.yml";
         String filepath2 = "src/test/resources/file2_2.yml";
