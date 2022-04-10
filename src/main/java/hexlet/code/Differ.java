@@ -3,7 +3,6 @@ package hexlet.code;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Map;
-//import java.util.LinkedHashMap;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
