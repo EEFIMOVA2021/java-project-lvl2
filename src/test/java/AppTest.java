@@ -4,6 +4,7 @@
 //package app;
 import hexlet.code.App;
 import hexlet.code.Differ;
+import hexlet.code.Formatter;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +17,7 @@ class AppTest {
     }
 
     @Test
-    void appJsonDifferGenerateStylish() {
+    void appJsonDifferGenerateStylish() throws Exception {
         String filepath1 = "src/test/resources/file1_1.json";
         String filepath2 = "src/test/resources/file2_2.json";
         String format = "stylish";
@@ -45,12 +46,12 @@ class AppTest {
                 + "\n- setting3: true"
                 + "\n+ setting3: none"
                 + "\n}";
-        String diff = Differ.generate(filepath1, filepath2, format);
+        String diff = Formatter.getStringFormat(Differ.generate(filepath1, filepath2), format);
         assertEquals(diff, result);
     }
 
     @Test
-    void appYmlDifferGenerateStylish() {
+    void appYmlDifferGenerateStylish() throws Exception {
         String filepath1 = "src/test/resources/file1_1.yml";
         String filepath2 = "src/test/resources/file2_2.yml";
         String format = "stylish";
@@ -79,12 +80,12 @@ class AppTest {
                 + "\n- setting3: true"
                 + "\n+ setting3: none"
                 + "\n}";
-        String diff = Differ.generate(filepath1, filepath2, format);
+        String diff = Formatter.getStringFormat(Differ.generate(filepath1, filepath2), format);
         assertEquals(diff, result);
     }
 
     @Test
-    void appJsonDifferGeneratePlain() {
+    void appJsonDifferGeneratePlain() throws Exception {
         String filepath1 = "src/test/resources/file1_1.json";
         String filepath2 = "src/test/resources/file2_2.json";
         String format = "plain";
@@ -101,12 +102,12 @@ class AppTest {
                 + "\nProperty 'setting1' was updated. From 'Some value' to 'Another value'"
                 + "\nProperty 'setting2' was updated. From 200 to 300"
                 + "\nProperty 'setting3' was updated. From true to 'none'";
-        String diff = Differ.generate(filepath1, filepath2, format);
+        String diff = Formatter.getStringFormat(Differ.generate(filepath1, filepath2), format);
         assertEquals(diff, result);
     }
 
     @Test
-    void appYmlDifferGeneratePlain() {
+    void appYmlDifferGeneratePlain() throws Exception {
         String filepath1 = "src/test/resources/file1_1.yml";
         String filepath2 = "src/test/resources/file2_2.yml";
         String format = "plain";
@@ -123,12 +124,12 @@ class AppTest {
                 + "\nProperty 'setting1' was updated. From 'Some value' to 'Another value'"
                 + "\nProperty 'setting2' was updated. From 200 to 300"
                 + "\nProperty 'setting3' was updated. From true to 'none'";
-        String diff = Differ.generate(filepath1, filepath2, format);
+        String diff = Formatter.getStringFormat(Differ.generate(filepath1, filepath2), format);
         assertEquals(diff, result);
     }
 
     @Test
-    void appJsonDifferGenerateJson() {
+    void appJsonDifferGenerateJson() throws Exception {
         String filepath1 = "src/test/resources/file1_1.json";
         String filepath2 = "src/test/resources/file2_2.json";
         String format = "json";
@@ -192,12 +193,12 @@ class AppTest {
                 + "\"oldValue\":true,"
                 + "\"key\":\"setting3\","
                 + "\"status\":\"change\"}";
-        String diff = Differ.generate(filepath1, filepath2, format);
+        String diff = Formatter.getStringFormat(Differ.generate(filepath1, filepath2), format);
         assertEquals(diff, result);
     }
 
     @Test
-    void appYmlDifferGenerateJson() {
+    void appYmlDifferGenerateJson() throws Exception {
         String filepath1 = "src/test/resources/file1_1.yml";
         String filepath2 = "src/test/resources/file2_2.yml";
         String format = "json";
@@ -261,7 +262,7 @@ class AppTest {
                 + "\"oldValue\":true,"
                 + "\"key\":\"setting3\","
                 + "\"status\":\"change\"}";
-        String diff = Differ.generate(filepath1, filepath2, format);
+        String diff = Formatter.getStringFormat(Differ.generate(filepath1, filepath2), format);
         assertEquals(diff, result);
     }
 }

@@ -8,18 +8,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Differ {
-    public static String generate(String filepath1, String filepath2, String format) {
-        String generateResult = "";
+    public static List<Map<String, Object>> generate(String filepath1, String filepath2) {
+        List<Map<String, Object>> resList = new LinkedList<>();
         try {
             Map<String, Object> map1 = Parser.parseFile(filepath1);
             Map<String, Object> map2 = Parser.parseFile(filepath2);
-            List<Map<String, Object>> resList = genDiff(map1, map2);
-            generateResult = Formatter.getStringFormat(resList, format);
+            resList = genDiff(map1, map2);
         } catch (Exception e) {
             System.out.println("An error has ossured in main()!");
             e.printStackTrace();
         }
-        return generateResult;
+        return resList;
     }
 
     private static List<Map<String, Object>> genDiff(Map<String, Object> map1, Map<String, Object> map2) {
