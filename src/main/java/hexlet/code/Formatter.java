@@ -28,14 +28,14 @@ public class Formatter {
         String result = "{";
         for (Map<String, Object> map: list) {
             if (map.get("status") == "add") {
-                result += "\n" + "+ " + map.get("key") + ": " + map.get("newValue");
+                result += "\n  + " + map.get("key") + ": " + map.get("newValue");
             } else if (map.get("status") == "remove") {
-                result += "\n" + "- " + map.get("key") + ": " + map.get("oldValue");
+                result += "\n  - " + map.get("key") + ": " + map.get("oldValue");
             } else if (map.get("status") == "change") {
-                result += "\n" + "- " + map.get("key") + ": " + map.get("oldValue")
-                        + "\n+ " + map.get("key") + ": " + map.get("newValue");
+                result += "\n  - " + map.get("key") + ": " + map.get("oldValue")
+                        + "\n  + " + map.get("key") + ": " + map.get("newValue");
             } else {
-                result += "\n" + "  " + map.get("key") + ": " + map.get("oldValue");
+                result += "\n    " + map.get("key") + ": " + map.get("oldValue");
             }
         }
         result += "\n}";
