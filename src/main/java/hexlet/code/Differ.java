@@ -21,6 +21,12 @@ public class Differ {
         return resList;
     }
 
+    public static String generate(String filepath1, String filepath2, String format) throws Exception {
+        List<Map<String, Object>> diff = generate(filepath1, filepath2);
+        String generateResult = Formatter.getStringFormat(diff, format);
+        return generateResult;
+    }
+
     private static List<Map<String, Object>> genDiff(Map<String, Object> map1, Map<String, Object> map2) {
         List<Map<String, Object>> resultList = new LinkedList<>();
         Set<String> keys = new TreeSet<>(map1.keySet());
