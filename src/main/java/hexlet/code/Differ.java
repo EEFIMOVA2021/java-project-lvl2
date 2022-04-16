@@ -8,23 +8,29 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Differ {
-    public static List<Map<String, Object>> generate(String filepath1, String filepath2) {
-        List<Map<String, Object>> resList = new LinkedList<>();
-        try {
-            Map<String, Object> map1 = Parser.parseFile(filepath1);
-            Map<String, Object> map2 = Parser.parseFile(filepath2);
-            resList = genDiff(map1, map2);
-        } catch (Exception e) {
-            System.out.println("An error has ossured in main()!");
-            e.printStackTrace();
-        }
-        return resList;
+    public static String generate(String filepath1, String filepath2) throws Exception {
+        List<Map<String, Object>> resList = generateDiffList(filepath1, filepath2);
+        String generateResult = Formatter.getStringFormat(resList, "stylish");
+        return generateResult;
     }
 
     public static String generate(String filepath1, String filepath2, String format) throws Exception {
-        List<Map<String, Object>> diff = generate(filepath1, filepath2);
-        String generateResult = Formatter.getStringFormat(diff, format);
+        List<Map<String, Object>> resList = generateDiffList(filepath1, filepath2);
+        String generateResult = Formatter.getStringFormat(resList, format);
         return generateResult;
+    }
+
+    public static List<Map<String, Object>> generateDiffList(String filepath1, String filepath2) {
+        List<Map<String, Object>> diffList = new LinkedList<>();
+        try {
+            Map<String, Object> map1 = Parser.parseFile(filepath1);
+            Map<String, Object> map2 = Parser.parseFile(filepath2);
+            diffList = genDiff(map1, map2);
+        } catch (Exception e) {
+            System.out.println("An error has ossured in Differ()!");
+            e.printStackTrace();
+        }
+        return diffList;
     }
 
     private static List<Map<String, Object>> genDiff(Map<String, Object> map1, Map<String, Object> map2) {

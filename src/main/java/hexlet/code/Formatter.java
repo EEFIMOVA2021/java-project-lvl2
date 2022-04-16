@@ -7,11 +7,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class Formatter {
     public static String getStringFormat(List<Map<String, Object>> list, String format) throws Exception {
         if (format.equals("plain")) {
-            //return getStringValuesPlain(list);
-            return getStringValuesStylish(list);
+            return getStringValuesPlain(list);
         } else if (format.equals("json")) {
-            //return getStringValuesJson(list);
-            return getStringValuesStylish(list);
+            return getStringValuesJson(list);
         } else {
             return getStringValuesStylish(list);
         }

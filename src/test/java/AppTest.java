@@ -4,7 +4,7 @@
 //package app;
 import hexlet.code.App;
 import hexlet.code.Differ;
-import hexlet.code.Formatter;
+//import hexlet.code.Formatter;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,7 +46,7 @@ class AppTest {
                 + "\n- setting3: true"
                 + "\n+ setting3: none"
                 + "\n}";
-        String diff = Formatter.getStringFormat(Differ.generate(filepath1, filepath2), format);
+        String diff = Differ.generate(filepath1, filepath2, format);
         assertEquals(diff, result);
     }
 
@@ -80,7 +80,7 @@ class AppTest {
                 + "\n- setting3: true"
                 + "\n+ setting3: none"
                 + "\n}";
-        String diff = Formatter.getStringFormat(Differ.generate(filepath1, filepath2), format);
+        String diff = Differ.generate(filepath1, filepath2, format);
         assertEquals(diff, result);
     }
 
@@ -102,7 +102,7 @@ class AppTest {
                 + "\nProperty 'setting1' was updated. From 'Some value' to 'Another value'"
                 + "\nProperty 'setting2' was updated. From 200 to 300"
                 + "\nProperty 'setting3' was updated. From true to 'none'";
-        String diff = Formatter.getStringFormat(Differ.generate(filepath1, filepath2), format);
+        String diff = Differ.generate(filepath1, filepath2, format);
         assertEquals(diff, result);
     }
 
@@ -124,7 +124,7 @@ class AppTest {
                 + "\nProperty 'setting1' was updated. From 'Some value' to 'Another value'"
                 + "\nProperty 'setting2' was updated. From 200 to 300"
                 + "\nProperty 'setting3' was updated. From true to 'none'";
-        String diff = Formatter.getStringFormat(Differ.generate(filepath1, filepath2), format);
+        String diff = Differ.generate(filepath1, filepath2, format);
         assertEquals(diff, result);
     }
 
@@ -193,7 +193,7 @@ class AppTest {
                 + "\"oldValue\":true,"
                 + "\"key\":\"setting3\","
                 + "\"status\":\"change\"}";
-        String diff = Formatter.getStringFormat(Differ.generate(filepath1, filepath2), format);
+        String diff = Differ.generate(filepath1, filepath2, format);
         assertEquals(diff, result);
     }
 
@@ -262,7 +262,7 @@ class AppTest {
                 + "\"oldValue\":true,"
                 + "\"key\":\"setting3\","
                 + "\"status\":\"change\"}";
-        String diff = Formatter.getStringFormat(Differ.generate(filepath1, filepath2), format);
+        String diff = Differ.generate(filepath1, filepath2, format);
         assertEquals(diff, result);
     }
 }
