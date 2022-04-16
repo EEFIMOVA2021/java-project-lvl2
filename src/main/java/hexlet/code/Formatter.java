@@ -9,7 +9,8 @@ public class Formatter {
         if (format.equals("plain")) {
             return getStringValuesPlain(list);
         } else if (format.equals("json")) {
-            return getStringValuesJson(list);
+            //return getStringValuesJson(list);
+            return getStringValuesStylish(list);
         } else {
             return getStringValuesStylish(list);
         }
