@@ -3,32 +3,16 @@ package hexlet.code;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.util.Map;
-import java.nio.file.Path;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class Parser {
-    public static String getDataFromFile(String filepath) throws Exception {
-        String str = "";
-        try {
-            Path path = Paths.get(filepath);
-            str = Files.readString(path);
-        } catch (Exception e) {
-            System.out.println("An error has ossured in getJsonFromFile()!");
-            e.printStackTrace();
-        }
-        return str;
-    }
-
-    public static Map<String, Object> parseFile(String filepath)  throws Exception {
-        String dataFromFile = getDataFromFile(filepath);
+    public static Map<String, Object> parseFile(String data, String format)  throws Exception {
         Map<String, Object> map = null;
-        if (filepath.endsWith(".json")) {
+        if (format.equals("json")) {
             ObjectMapper objectMapper = new ObjectMapper();
-            map = objectMapper.readValue(dataFromFile, Map.class);
+            map = objectMapper.readValue(data, Map.class);
         } else {
             ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
-            map = objectMapper.readValue(dataFromFile, Map.class);
+            map = objectMapper.readValue(data, Map.class);
         }
         return map;
     }

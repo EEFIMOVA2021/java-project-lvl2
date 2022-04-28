@@ -4,12 +4,13 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
+import java.util.concurrent.Callable;
 
 @Command(name = "App", version = "App 1.0",
         mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
 
-public class App implements Runnable {
+public final class App implements Callable<Integer> {
     @Option(names = { "-f", "--format" }, defaultValue = "stylish", description = "output format [default: stylish]")
     private static String format;
 
@@ -21,18 +22,21 @@ public class App implements Runnable {
             description = "path to second file")
     private static String filepath2;
 
-    public final String getGreeting() {
-        return "Hello World!";
-    }
-
     @Override
-    public void run() {
+    public Integer call() throws Exception {
+        try {
+            String generateResult = Differ.generate(filepath1, filepath2, format);
+            System.out.println(generateResult);
+        } catch (Exception e) {
+            return 1;
+        }
+        return 0;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
-        String generateResult = Differ.generate(filepath1, filepath2, format);
-        System.out.println(generateResult);
+        //String generateResult = Differ.generate(filepath1, filepath2, format);
+        //System.out.println(generateResult);
         System.exit(exitCode);
     }
 }
