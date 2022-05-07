@@ -8,10 +8,10 @@ public class Plain {
         boolean firstEnter = true;
         String result = "";
         for (Map<String, Object> map: list) {
-            if (!map.get("status").equals("unchange") && !firstEnter) {
-                result += "\n";
-            }
             if (!map.get("status").equals("unchange")) {
+                if (!firstEnter) {
+                    result += "\n";
+                }
                 firstEnter = false;
             }
             result += getValueForStatus(map);

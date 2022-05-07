@@ -12,7 +12,7 @@ public class Tree {
         List<Map<String, Object>> resultList = new LinkedList<>();
         Set<String> keys = new TreeSet<>(map1.keySet());
         keys.addAll(map2.keySet());
-        for (String key: keys) {
+        for (String key : keys) {
             Map<String, Object> resultMap = getResultMap(map1, map2, key);
             resultList.add(resultMap);
         }
@@ -29,17 +29,22 @@ public class Tree {
     }
 
     public static String calcStatus(Map<String, Object> map1, Map<String, Object> map2, String key) {
+        String result = "";
         if (!map1.containsKey(key)) {
-            return "add";
+            result = "add";
         } else if (!map2.containsKey(key)) {
-            return "remove";
-        } else if (map1.get(key) == null && map2.get(key) != null) {
-            return "change";
-        } else if (map1.get(key) != null && map2.get(key) == null) {
-            return "change";
-        } else if (map1.get(key) == null && map2.get(key) == null || map1.get(key).equals(map2.get(key))) {
-            return "unchange";
+            result = "remove";
+        } else if (calcChangeStatus(map1, map2, key)) {
+            result = "change";
+        } else {
+            result = "unchange";
         }
-        return "change";
+        return result;
+    }
+
+    private static boolean calcChangeStatus(Map<String, Object> map1, Map<String, Object> map2, String key) {
+        return map1.get(key) == null && map2.get(key) != null
+                || map1.get(key) != null && map2.get(key) == null
+                || map1.get(key) != null && map2.get(key) != null && !map1.get(key).equals(map2.get(key));
     }
 }
