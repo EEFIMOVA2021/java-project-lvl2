@@ -4,17 +4,13 @@ import java.util.Map;
 import java.util.List;
 
 public class Plain {
+    private static boolean firstEnter;
+
     public static String getStringValuesPlain(List<Map<String, Object>> list) {
-        boolean firstEnter = true;
+        firstEnter = true;
         String result = "";
         for (Map<String, Object> map: list) {
-            if (!map.get("status").equals("unchange")) {
-                if (!firstEnter) {
-                    result += "\n";
-                }
-                firstEnter = false;
-            }
-            result += getValueForStatus(map);
+            result += getLineBreak(map) + getValueForStatus(map);
         }
         return result;
     }
@@ -44,5 +40,16 @@ public class Plain {
             return value.toString();
         }
         return "[complex value]";
+    }
+
+    private static String getLineBreak(Map<String, Object> map) {
+        String result = "";
+        if (!map.get("status").equals("unchange")) {
+            if (!firstEnter) {
+                result += "\n";
+            }
+            firstEnter = false;
+        }
+        return result;
     }
 }
