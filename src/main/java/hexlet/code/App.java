@@ -27,20 +27,6 @@ public final class App implements Callable<Integer> {
         try {
             String generateResult = Differ.generate(filepath1, filepath2, format);
             System.out.println(generateResult);
-            String result = "Property 'chars2' was updated. From [complex value] to false"
-                    + "\nProperty 'checked' was updated. From false to true"
-                    + "\nProperty 'default' was updated. From null to [complex value]"
-                    + "\nProperty 'id' was updated. From 45 to null"
-                    + "\nProperty 'key1' was removed"
-                    + "\nProperty 'key2' was added with value: 'value2'"
-                    + "\nProperty 'numbers2' was updated. From [complex value] to [complex value]"
-                    + "\nProperty 'numbers3' was removed"
-                    + "\nProperty 'numbers4' was added with value: [complex value]"
-                    + "\nProperty 'obj1' was added with value: [complex value]"
-                    + "\nProperty 'setting1' was updated. From 'Some value' to 'Another value'"
-                    + "\nProperty 'setting2' was updated. From 200 to 300"
-                    + "\nProperty 'setting3' was updated. From true to 'none'";
-            System.out.println(result);
         } catch (Exception e) {
             return 1;
         }
