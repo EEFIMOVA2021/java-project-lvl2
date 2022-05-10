@@ -39,11 +39,6 @@ application {
     mainClass = 'hexlet.code.App'
 }
 
-tasks.named('test') {
-    // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
-}
-
 compileJava {
     options.release = 16
 }
@@ -51,51 +46,13 @@ compileJava {
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport // report is always generated after tests run
-    jacoco {
-        destinationFile = layout.buildDirectory.file('jacoco/jacocoTest.exec').get().asFile
-        classDumpDir = layout.buildDirectory.dir('jacoco/classpathdumps').get().asFile
-    }
-}
-
-jacoco {
-    toolVersion = "0.8.7"
-    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
-    applyTo run
 }
 
 jacocoTestReport {
+    dependsOn test
     reports {
-        xml.required = false
-        csv.required = false
-        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+        xml.required = true
     }
-}
-
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                minimum = 0.5
-            }
-        }
-
-        rule {
-            enabled = false
-            element = 'CLASS'
-            includes = ['org.gradle.*']
-
-            limit {
-                counter = 'LINE'
-                value = 'TOTALCOUNT'
-                maximum = 0.3
-            }
-        }
-    }
-}
-
-tasks.register('applicationCodeCoverageReport', JacocoReport) {
-    executionData run
-    sourceSets sourceSets.main
 }
 
 /*
