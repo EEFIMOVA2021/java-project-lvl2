@@ -1,4 +1,4 @@
-package hexlet.formatter;
+package hexlet.code.formatter;
 
 import java.util.Map;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 public class Plain {
     private static boolean firstEnter;
 
-    public static String getStringValuesPlain(List<Map<String, Object>> list) {
+    public static String render(List<Map<String, Object>> list) {
         firstEnter = true;
         String result = "";
         for (Map<String, Object> map: list) {

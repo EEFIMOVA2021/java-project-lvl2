@@ -1,10 +1,10 @@
-package hexlet.formatter;
+package hexlet.code.formatter;
 
 import java.util.Map;
 import java.util.List;
 
 public class Stylish {
-    public static String getStringValuesStylish(List<Map<String, Object>> list) {
+    public static String render(List<Map<String, Object>> list) {
         String result = "{";
         for (Map<String, Object> map: list) {
             result += getValueForStatus(map);
